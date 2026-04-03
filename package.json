@@ -1,0 +1,33 @@
+{
+  "name": "test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "Main.js",
+  "scripts": {
+    "test": "node --watch ./Src/Main.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "bcrypt": "^6.0.0",
+    "cors": "^2.8.6",
+    "crypto-js": "^4.2.0",
+    "dotenv": "^17.3.1",
+    "env": "^0.0.2",
+    "express": "^5.2.1",
+    "express-rate-limit": "^8.3.2",
+    "geoip-lite": "^2.0.1",
+    "google-auth-library": "^10.6.1",
+    "helmet": "^8.1.0",
+    "joi": "^18.0.2",
+    "jsonwebtoken": "^9.0.3",
+    "mongodb": "^7.1.0",
+    "mongoose": "^9.2.1",
+    "multer": "^2.1.1",
+    "node-encryption": "^2.0.1",
+    "nodemailer": "^8.0.3",
+    "redis": "^5.11.0"
+  }
+}
