@@ -39,7 +39,7 @@ when you make trust proxy is true (req.ip will take value ok key req.headers['x-
     rateLimit({
       windowMs: 1 * 60 * 1000,
       limit: (req, res) => {
-        const geoInfo = geoLite.lookup(req.ip);
+        const geoInfo = geoLite.lookup(req.ip)||{};
         return geoInfo.country == "EG" ? 2 : 0; //block any request coming from outside egypt
       },
       legacyHeaders: false,
@@ -67,7 +67,7 @@ when you make trust proxy is true (req.ip will take value ok key req.headers['x-
         },
         decrement: async (key) => {
           //will run when you active (skipFailedRequests: true,)or(skipSuccessfulRequests:true)
-          const isKeyExist = await redisMethods.isKeyExist(key);
+          const isKeyExist = await redisMethods.isKeyExistF(key);
           if (isKeyExist) {
             await redisMethods.decr(key);
           }

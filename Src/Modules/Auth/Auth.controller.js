@@ -7,6 +7,7 @@ import {
   resendOTPForgetPassword,
   resendOTPLogin,
   sendOTPForgerpassword,
+  sendResetLinkForgetPassword,
   signUp,
   signUpWithGmail,
   updateForgetPassword,
@@ -118,7 +119,24 @@ AuthRouter.post(
     const result = await resendOTPForgetPassword(req.body.email);
     return successResponse({ res, data: "check your inbox", statusCode: 200 });
   },
+
+
+  
 );
+AuthRouter.post(
+  "/Link-sendLinkForgetPassword",
+  validation(resendOTPForgetPasswordScema),
+  async (req, res) => {
+    const result = await sendResetLinkForgetPassword(req.body.email);
+    return successResponse({ res, data: "check your inbox", statusCode: 200 });
+  },
+
+
+  
+);
+
+
+
 // AuthRouter.post("/LogInWithGoogle", async (req, res) => {
 //   const result = await logInWithGoogle(req.body.);
 //   return successResponse({ res, statusCode: 200, data: result });

@@ -339,6 +339,52 @@ export async function resendOTPForgetPassword(email) {
     subject: "Another ForgetPassward OTP",
   });
 }
+
+import crypto from "crypto";
+
+export async function sendResetLinkForgetPassword(email) {
+  const user = await dbRepo.findOne({
+    model: UserModel,
+    filters: { email },
+  });
+
+  if (!user) {
+    return badRequestExeption("User Not Found");
+  }
+
+  if (!user.confirmEmail) {
+    return badRequestExeption("you need to confirm your email first");
+  }
+
+
+  const token = crypto.randomBytes(32).toString("hex");
+
+
+  const hashedToken = crypto
+    .createHash("sha256")
+    .update(token)
+    .digest("hex");
+
+
+  user.resetToken = hashedToken;
+  user.resetTokenExpires = Date.now() + 15 * 60 * 1000; 
+
+  await user.save();
+
+ 
+  const resetLink = `${process.env.FRONTEND_URL}/reset-password?token=${token}`;
+
+
+  await sendMail({
+    to: email,
+    subject: "Reset your password",
+    html: `
+      <p>Click the link below to reset your password:</p>
+      <a href="${resetLink}">Reset Password</a>
+      <p>This link will expire in 15 minutes.</p>
+    `,
+  });
+}
 // export function generateOTP() {
 //   return Math.floor(100000 + Math.random() * 900000).toString(); // 6 أرقام
 // }

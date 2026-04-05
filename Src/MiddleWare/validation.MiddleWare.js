@@ -11,6 +11,7 @@ export function validation(schema) {
   return (req, res, next) => {
     const validationErr = [];
     for (const schemaKey of Object.keys(schema)) {
+      //schemaKey="body" => schema["body"],req["body"]
       const validationResult = schema[schemaKey].validate(req[schemaKey], {
         abortEarly: false,
       });

@@ -8,6 +8,9 @@ export async function set({ key, value, EXtype = "EX", EXvalue = 50 }) {
 export async function incr(key) {
   return await client.incr(key);
 }
+export async function isKeyExistF(key) {
+  return await client.exists(key);
+}
 export async function decr(key) {
   return await client.decr(key);
 }
